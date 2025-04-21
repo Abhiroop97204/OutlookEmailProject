@@ -34,7 +34,7 @@ src/main/java/
 bash
 Copy
 Edit
-git clone https://github.com/your-username/email-grouper.git
+git clone git@github.com:Abhiroop97204/OutlookEmailProject.git
 cd email-grouper
 2. Import project into IntelliJ / Eclipse / VSCode
 Open as Maven project (pom.xml is already configured).
