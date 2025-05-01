@@ -87,7 +87,7 @@ public class EmailUI extends Application {
         layout.setPrefSize(450, 500);
         Scene scene = new Scene(layout);
 
-        primaryStage.setTitle("Gmail Email Grouper 📬");
+        primaryStage.setTitle("Gmail Email Grouper");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

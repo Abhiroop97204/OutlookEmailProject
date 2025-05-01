@@ -27,12 +27,12 @@ public class EmailReader {
             session = Session.getInstance(properties);
             store = session.getStore("imaps");
             store.connect(host, username, password);
-            System.out.println("✅ Connected to Gmail successfully!");
+            System.out.println("Connected to Gmail successfully!");
             return true;
         } catch (AuthenticationFailedException e) {
-            System.out.println("❌ Authentication failed: " + e.getMessage());
+            System.out.println("Authentication failed: " + e.getMessage());
         } catch (MessagingException e) {
-            System.out.println("❌ Messaging error: " + e.getMessage());
+            System.out.println("Messaging error: " + e.getMessage());
         }
         return false;
     }
@@ -44,7 +44,7 @@ public class EmailReader {
     private List<Message> fetchEmailsInternal(boolean isRetry) {
         List<Message> emails = new ArrayList<>();
         if (store == null || !store.isConnected()) {
-            System.out.println("❗ Store is not connected. Please connect first.");
+            System.out.println("Store is not connected. Please connect first.");
             return emails;
         }
 
@@ -57,12 +57,12 @@ public class EmailReader {
             }
 
             int messageCount = inbox.getMessageCount();
-            System.out.println("📬 Total Messages in Inbox: " + messageCount);
+            System.out.println("Total Messages in Inbox: " + messageCount);
 
             int end = messageCount;
             int start = Math.max(1, messageCount - (fetchCount - 1)); // Dynamic based on fetchCount
 
-            System.out.println("📥 Fetching messages from " + start + " to " + end);
+            System.out.println("Fetching messages from " + start + " to " + end);
 
             Message[] messages = inbox.getMessages(start, end);
 
@@ -74,7 +74,7 @@ public class EmailReader {
             emails.addAll(Arrays.asList(messages));
 
         } catch (FolderClosedException e) {
-            System.out.println("⚠️ FolderClosedException occurred: " + e.getMessage());
+            System.out.println("⚠FolderClosedException occurred: " + e.getMessage());
             if (!isRetry) {
                 try {
                     System.out.println("⏳ Waiting 6 seconds before retrying...");
@@ -82,20 +82,20 @@ public class EmailReader {
                 } catch (InterruptedException ie) {
                     Thread.currentThread().interrupt();
                 }
-                System.out.println("🔁 Retrying now...");
+                System.out.println("Retrying now...");
                 return fetchEmailsInternal(true);
             } else {
-                System.out.println("❌ Retry also failed due to FolderClosedException.");
+                System.out.println("Retry also failed due to FolderClosedException.");
             }
         } catch (MessagingException e) {
-            System.out.println("❌ Error reading emails: " + e.getMessage());
+            System.out.println("Error reading emails: " + e.getMessage());
         } finally {
             try {
                 if (inbox != null && inbox.isOpen()) {
                     inbox.close(false);
                 }
             } catch (MessagingException e) {
-                System.out.println("⚠️ Error closing inbox: " + e.getMessage());
+                System.out.println("Error closing inbox: " + e.getMessage());
             }
         }
         return emails;
@@ -105,9 +105,9 @@ public class EmailReader {
         if (store != null && store.isConnected()) {
             try {
                 store.close();
-                System.out.println("✅ Disconnected from Gmail successfully!");
+                System.out.println("Disconnected from Gmail successfully!");
             } catch (MessagingException e) {
-                System.out.println("⚠️ Error closing store: " + e.getMessage());
+                System.out.println("Error closing store: " + e.getMessage());
             }
         }
     }
